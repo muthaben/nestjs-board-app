@@ -1,5 +1,6 @@
 import { Injectable } from '@nestjs/common';
-import { Board } from './board.model';
+import { Board, BoardStatus } from './board.model';
+import { v1 as uuid } from 'uuid'; // DB가 아닌 로컬 환경에서 게시물에 고유한 id값 부여(v1 버전을 'uuid'로써 사용)
 
 @Injectable()
 //@ Injectable 데코레이터
@@ -13,5 +14,17 @@ export class BoardsService {
   getAllBoards(): Board[] {
     // BoardsController에서 getAllBoards 함수 호출 -> boards의 값을 모두 받음
     return this.boards;
+  }
+
+  createBoard(title: string, description: string) {
+    const board: Board = {
+      id: uuid(),
+      title,
+      description,
+      status: BoardStatus.PUBLIC,
+    };
+
+    this.boards.push(board);
+    return board;
   }
 }
