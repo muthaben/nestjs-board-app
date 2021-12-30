@@ -1,4 +1,4 @@
-import { Controller } from '@nestjs/common';
+import { Controller, Get } from '@nestjs/common';
 import { BoardsService } from './boards.service';
 
 // 클라이언트의 HTTP 요청을 처리하고 응답 반환
@@ -9,7 +9,15 @@ export class BoardsController {
   // Board Service를 Board Controller에서 이용할 수 있도록 클래스의 Constructor 안에서 종속성 주입(Dependency Injection)
   //* 접근 제한자(public, protected, private)를 constructor 생성자 파라미터에 선언하면 그 파라미터는 암묵적으로 클래스 프로퍼티로 선언된다.
   //* private 키워드를 사용하여 클래스 내부에서만 프로퍼티로 접근하여 사용 가능( 예. this.boardsService.getAllBoards(); )
-  constructor(private boardService: BoardsService) {}
+  constructor(private boardsService: BoardsService) {}
+
+  //@ 모든 게시물을 가져오는 핸들러 getAllBoard()
+  // 클라이언트에서 boards/ 경로로 GET 요청 -> Controller가 알맞은 요청 경로에 라우팅해서 해당 핸들러로 라우팅
+  @Get('/')
+  getAllBoard() {
+    // boardsService가 요청 처리하고 결과값 Controller로 리턴 -> Controller가 클라이언트에 응답
+    return this.boardsService.getAllBoards();
+  }
 }
 
 /*
