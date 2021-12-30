@@ -1,4 +1,4 @@
-import { Controller, Get } from '@nestjs/common';
+import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Board } from './board.model';
 import { BoardsService } from './boards.service';
 
@@ -14,10 +14,21 @@ export class BoardsController {
 
   //@ 모든 게시물을 가져오는 핸들러 getAllBoard()
   // 클라이언트에서 boards/ 경로로 GET 요청 -> Controller가 알맞은 요청 경로에 라우팅해서 해당 핸들러로 라우팅
-  @Get('/')
+  @Get()
   getAllBoard(): Board[] {
     // boardsService가 요청 처리하고 결과값 Controller로 리턴 -> Controller가 클라이언트에 응답
     return this.boardsService.getAllBoards();
+  }
+
+  //@ 새 게시물 생성하는 핸들러
+  @Post()
+  createBoard(
+    @Body('title') title: string,
+    @Body('description') description: string,
+  ): Board {
+    //* @Body body: Express에서는 req.body로 들어오는 값
+    // 개별적으로 활용하려면 @Body('title) title / @Body('description') description
+    return this.boardsService.createBoard(title, description);
   }
 }
 
