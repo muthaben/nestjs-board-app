@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { v1 as uuid } from 'uuid'; // DB가 아닌 로컬 환경에서 게시물에 고유한 id값 부여(v1 버전을 'uuid'로써 사용)
+import { CreateBoardDto } from './dto/create-board.dto';
 
 @Injectable()
 //@ Injectable 데코레이터
@@ -16,7 +17,8 @@ export class BoardsService {
     return this.boards;
   }
 
-  createBoard(title: string, description: string) {
+  createBoard(createBoardDto: CreateBoardDto) {
+    const { title, description } = createBoardDto;
     const board: Board = {
       id: uuid(),
       title,

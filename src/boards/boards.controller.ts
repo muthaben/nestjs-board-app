@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
 import { Board } from './board.model';
 import { BoardsService } from './boards.service';
+import { CreateBoardDto } from './dto/create-board.dto';
 
 // 클라이언트의 HTTP 요청을 처리하고 응답 반환
 @Controller('boards')
@@ -22,13 +23,10 @@ export class BoardsController {
 
   //@ 새 게시물 생성하는 핸들러
   @Post()
-  createBoard(
-    @Body('title') title: string,
-    @Body('description') description: string,
-  ): Board {
+  createBoard(@Body() createBoardDto: CreateBoardDto): Board {
     //* @Body body: Express에서는 req.body로 들어오는 값
     // 개별적으로 활용하려면 @Body('title) title / @Body('description') description
-    return this.boardsService.createBoard(title, description);
+    return this.boardsService.createBoard(createBoardDto);
   }
 }
 
