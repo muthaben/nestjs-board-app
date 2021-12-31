@@ -35,6 +35,11 @@ export class BoardsController {
   }
 
   //@ 새 게시물 생성하는 핸들러
+  @Post()
+  @UsePipes(ValidationPipe)
+  createBoard(@Body() createBoardDto: CreateBoardDto): Promise<Board> {
+    return this.boardsService.createBoard(createBoardDto);
+  }
 
   //@ 특정 id의 게시물을 삭제하는 핸들러
 
