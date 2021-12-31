@@ -28,6 +28,10 @@ export class BoardsController {
 
   //@ 모든 게시물을 가져오는 핸들러 getAllBoard()
   // 클라이언트에서 boards/ 경로로 GET 요청 -> Controller가 알맞은 요청 경로에 라우팅해서 해당 핸들러로 라우팅
+  @Get()
+  getAllBoards(): Promise<Board[]> {
+    return this.boardsService.getAllBoards();
+  }
 
   //@ 특정 id의 게시물을 가져오는 핸들러
   @Get('/:id')
