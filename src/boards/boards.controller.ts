@@ -6,6 +6,8 @@ import {
   Param,
   Patch,
   Post,
+  UsePipes,
+  ValidationPipe,
 } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { BoardsService } from './boards.service';
@@ -37,6 +39,7 @@ export class BoardsController {
 
   //@ 새 게시물 생성하는 핸들러
   @Post()
+  @UsePipes(ValidationPipe) // Handler-level pipe(유효성 검사)
   createBoard(@Body() createBoardDto: CreateBoardDto): Board {
     //* @Body body: Express에서는 req.body로 들어오는 값
     // 개별적으로 활용하려면 @Body('title) title / @Body('description') description
