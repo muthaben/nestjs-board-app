@@ -9,7 +9,8 @@ import {
   UsePipes,
   ValidationPipe,
 } from '@nestjs/common';
-import { Board, BoardStatus } from './board.model';
+import { BoardStatus } from './board-status.enum';
+import { Board } from './board.entity';
 import { BoardsService } from './boards.service';
 import { CreateBoardDto } from './dto/create-board.dto';
 import { BoardStatusValidationPipe } from './pipes/board-status-validation.pipe';
@@ -26,41 +27,18 @@ export class BoardsController {
 
   //@ 모든 게시물을 가져오는 핸들러 getAllBoard()
   // 클라이언트에서 boards/ 경로로 GET 요청 -> Controller가 알맞은 요청 경로에 라우팅해서 해당 핸들러로 라우팅
-  @Get()
-  getAllBoard(): Board[] {
-    // boardsService가 요청 처리하고 결과값 Controller로 리턴 -> Controller가 클라이언트에 응답
-    return this.boardsService.getAllBoards();
-  }
 
   //@ 특정 id의 게시물을 가져오는 핸들러
   @Get('/:id')
-  getBoardById(@Param('id') id: string): Board {
+  getBoardById(@Param('id') id: number): Promise<Board> {
     return this.boardsService.getBoardById(id);
   }
 
   //@ 새 게시물 생성하는 핸들러
-  @Post()
-  @UsePipes(ValidationPipe) // Handler-level pipe(유효성 검사)
-  createBoard(@Body() createBoardDto: CreateBoardDto): Board {
-    //* @Body body: Express에서는 req.body로 들어오는 값
-    // 개별적으로 활용하려면 @Body('title) title / @Body('description') description
-    return this.boardsService.createBoard(createBoardDto);
-  }
 
   //@ 특정 id의 게시물을 삭제하는 핸들러
-  @Delete('/:id')
-  deleteBoard(@Param('id') id: string): void {
-    this.boardsService.deleteBoard(id);
-  }
 
   //@ 특정 id의 게시물의 공개 상태를 변경하는 핸들러
-  @Patch('/:id/status')
-  updateBoardStatus(
-    @Param('id') id: string,
-    @Body('status', BoardStatusValidationPipe) status: BoardStatus,
-  ) {
-    return this.boardsService.updateBoardStatus(id, status);
-  }
 }
 
 /*

@@ -3,12 +3,12 @@
   interface 이용 -> 변수의 타입만 체크 (구조 정의)
   class 이용 -> 변수의 타입 체크, 인스턴스 생성도 가능
 */
-export interface Board {
-  id: string;
-  title: string;
-  description: string;
-  status: BoardStatus;
-}
+// export interface Board {
+//   id: string;
+//   title: string;
+//   description: string;
+//   status: BoardStatus;
+// }
 
 // BoardStatus: 게시물이 공개 상태인지 비공개 상태인지 나눠주는 것
 export enum BoardStatus {

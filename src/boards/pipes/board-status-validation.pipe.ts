@@ -1,5 +1,5 @@
 import { BadRequestException, PipeTransform } from '@nestjs/common';
-import { BoardStatus } from '../board.model';
+import { BoardStatus } from '../board-status.enum';
 /*
 인터페이스 PipeTransform을 새롭게 만들 커스텀 파이프에 구현해야 함
 모든 파이프에서 구현해줘야하는 인터페이스로서 메서드 transform()을 필요로 함

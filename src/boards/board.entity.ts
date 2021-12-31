@@ -1,5 +1,5 @@
 import { BaseEntity, Column, Entity, PrimaryGeneratedColumn } from 'typeorm';
-import { BoardStatus } from './board.model';
+import { BoardStatus } from './board-status.enum';
 
 @Entity() // 데코레이터 클래스 Entity(): 클래스 Board가 entity임을 나타냄(= CREATE TABLE board)
 export class Board extends BaseEntity {
