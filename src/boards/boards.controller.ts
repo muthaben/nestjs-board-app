@@ -49,6 +49,13 @@ export class BoardsController {
   }
 
   //@ 특정 id의 게시물의 공개 상태를 변경하는 핸들러
+  @Patch('/:id/status')
+  updateBoardStatus(
+    @Param('id', ParseIntPipe) id: number,
+    @Body('status', BoardStatusValidationPipe) status: BoardStatus,
+  ): Promise<Board> {
+    return this.boardsService.updateBoardStatus(id, status);
+  }
 }
 
 /*
