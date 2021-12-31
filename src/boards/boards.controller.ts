@@ -4,6 +4,7 @@ import {
   Delete,
   Get,
   Param,
+  ParseIntPipe,
   Patch,
   Post,
   UsePipes,
@@ -42,6 +43,10 @@ export class BoardsController {
   }
 
   //@ 특정 id의 게시물을 삭제하는 핸들러
+  @Delete('/:id')
+  deleteBoard(@Param('id', ParseIntPipe) id): Promise<void> {
+    return this.boardsService.deleteBoard(id);
+  }
 
   //@ 특정 id의 게시물의 공개 상태를 변경하는 핸들러
 }
