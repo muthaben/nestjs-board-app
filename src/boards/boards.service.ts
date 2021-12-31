@@ -1,4 +1,4 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { Board, BoardStatus } from './board.model';
 import { v1 as uuid } from 'uuid'; // DB가 아닌 로컬 환경에서 게시물에 고유한 id값 부여(v1 버전을 'uuid'로써 사용)
 import { CreateBoardDto } from './dto/create-board.dto';
@@ -31,7 +31,14 @@ export class BoardsService {
   }
 
   getBoardById(id: string): Board {
-    return this.boards.find((board) => board.id === id);
+    const found = this.boards.find((board) => board.id === id);
+
+    if (!found) {
+      // GET 요청으로 입력받은 id를 가진 게시물이 없는 경우
+      throw new NotFoundException(`Can't find Board with id${id}`);
+    }
+
+    return found;
   }
 
   deleteBoard(id: string): void {
