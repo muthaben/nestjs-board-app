@@ -2,10 +2,11 @@ import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { BoardsModule } from './boards/boards.module';
 import { typeORMConfig } from './configs/typeorm.config';
+import { AuthModule } from './auth/auth.module';
 
 // 애플리케이션에서 사용할 module 등록(진입점)
 @Module({
-  imports: [BoardsModule, TypeOrmModule.forRoot(typeORMConfig)],
+  imports: [BoardsModule, TypeOrmModule.forRoot(typeORMConfig), AuthModule],
   // forRoot안에 넣어준 설정(configuration)은 모든 sub-module에 다 적용됨
 })
 export class AppModule {}
